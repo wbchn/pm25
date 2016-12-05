@@ -15,14 +15,17 @@ from urllib.parse import (
 from urllib.request import urlopen, Request
 
 
+_default_public_token = '5j1znBVAsnSf5xQyNQyq'
+
+
 class Base(object):
     """
     Base class for pm25
     """
     _token = None
 
-    def __init__(self, token):
-        self._token = token
+    def __init__(self, token=None):
+        self._token = token or _default_public_token
         assert(self._token)
 
     def _get(self, uri, params, headers=None):
@@ -30,7 +33,7 @@ class Base(object):
         uri += '?' + urlencode(params)
         req = Request(uri, headers)
         response = urlopen(req)
-        return json.dumps(response.read().decode())
+        return json.loads(response.read().decode())
 
 def typeassert(*ty_args, **ty_kwargs):
     """
