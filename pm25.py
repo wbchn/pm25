@@ -187,7 +187,7 @@ class PM25(Base):
         params = {'city': city, 'avg': avg, 'stations': stations}
         return self._get(uri, params)
 
-    @typeassert(station_code=int)
+    @typeassert(station_code=str)
     def aqis_by_station(self, station_code):
         """
         1.9 获取一个监测点的AQI数据（含详情）
